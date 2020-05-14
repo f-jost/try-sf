@@ -15,7 +15,7 @@ class QuestionController extends AbstractController
      */
     public function homepage(): Response
     {
-        return new Response('Hello world!');
+        return $this->render('question/homepage.html.twig');
     }
 
     /**
@@ -29,10 +29,8 @@ class QuestionController extends AbstractController
             'Maybe... try saying the spell backwards?',
         ];
 
-        dump($this);
-
         return $this->render('question/show.html.twig', [
-            'question' => ucwords(str_replace('-', ' ', $slug)),
+            'question' => str_replace('-', ' ', $slug),
             'answers' => $answers,
         ]);
     }
