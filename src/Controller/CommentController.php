@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,15 +17,17 @@ class CommentController extends AbstractController
      *
      * @throws Exception
      */
-    public function commentVote(string $id, string $direction): Response
+    public function commentVote(string $id, string $direction, LoggerInterface $logger): Response
     {
         // todo - use id to query the database
 
         // use real logic here to save this to the database
         if ('up' === $direction) {
             $currentVoteCount = random_int(7, 100);
+            $logger->info('Voting up!');
         } else {
             $currentVoteCount = random_int(0, 5);
+            $logger->info('Voting down!');
         }
 
         return $this->json(['votes' => $currentVoteCount]);
